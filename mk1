@@ -1,0 +1,181 @@
+# Here is my program as it stands at the moment...
+
+import pandas as pd #because you gotta us Pandas
+
+# I am working on making Group A of the 1966 world cup
+# You can find the results for that here https://www.sport-histoire.fr/en/Sport/Football/World_Cup/1966_World_Cup.php
+# The aim of this code is to take a series of user inputs and calculate the results in a table
+# This first part is me testing to make the table work - and it does! It sorts by Points then Goal Difference (GD)
+# I've manually put the data in this one
+
+print("Group A")
+print("-------")
+
+teams = {
+    "Team_Name": ["England", "Uruguay", "Mexico", "France"],
+    "Win": [2, 1, 0, 0],
+    "Draw": [1, 2, 2, 1],
+    "Loss": [0, 0, 1, 2],
+    "GF": [4, 2, 1, 2],
+    "GA": [0, 1, 3, 5],
+    "GD": [4, 1, int(-2), int(-3)],
+    "Pts": [5, 4, 2, 1]
+}
+df = pd.DataFrame(teams)
+print(df.sort_values(by=["Pts", "GD"], ascending=False))
+
+# This is where we get the input from the user for the games
+# There are six games in this group between the four teams England, Uruguay, Mexico and France
+
+print("")
+print("Group A")
+print("-------")
+print("")
+print("Match 1: England v Uruguay")
+print("---")
+score1_1 = int(input("England: "))
+score1_2 = int(input("Uruguay: "))
+print("")
+print("England ", score1_1, " - ", score1_2, " Uruguay")
+print("")
+print("Match 2: France v Mexico")
+print("---")
+score2_1 = int(input("France: "))
+score2_2 = int(input("Mexico: "))
+print("")
+print("France ", score2_1, " - ", score2_2, " Mexico")
+print("")
+print("Match 3: Uruguay v France")
+print("---")
+score3_1 = int(input("Uruguay: "))
+score3_2 = int(input("France: "))
+print("")
+print("Uruguay ", score3_1, " - ", score3_2, " France")
+print("")
+print("Match 4: England v Mexico")
+print("---")
+score4_1 = int(input("England: "))
+score4_2 = int(input("Mexico: "))
+print("")
+print("England ", score4_1, " - ", score4_2, " Mexico")
+print("")
+print("Match 5: Uruguay v Mexico")
+print("---")
+score5_1 = int(input("Uruguay: "))
+score5_2 = int(input("Mexico: "))
+print("")
+print("Uruguay ", score5_1, " - ", score5_2, "Mexico")
+print("")
+print("Match 6: England v France")
+print("---")
+score6_1 = int(input("England: "))
+score6_2 = int(input("France: "))
+print("")
+print("England ", score6_1, " - ", score6_2, " France")
+print("")
+
+# Below is my crude Goal Difference (GD) calculation, which is a sort variable in the teams1 dataframe below
+# GD is worked out by Goals For - Goals Against across all the teams games
+
+enggf = score1_1 + score4_1 + score6_1
+urugf = score1_2 + score3_1 + score5_1
+mexgf = score2_2 + score4_2 + score5_2
+fragf = score2_1 + score3_2 + score6_2
+
+engga = score1_2 + score4_2 + score6_2
+uruga = score1_1 + score3_2 + score5_2
+mexga = score2_1 + score4_1 + score5_1
+fraga = score2_2 + score3_1 + score6_1
+
+enggd = enggf - engga
+urugd = urugf - uruga
+mexgd = mexgf - mexga
+fragd = fragf - fraga
+
+# The stuff below needs work - but the aim is to use the results inputted by the user to work out the points, my logic is below vv
+# For example:
+# A win = Team A scoring > than Team B
+# A draw = Team A scoring == Team B
+# A loss = Team A scoring < than Team B
+# The points should go Win = 2, Draw = 1 and Loss = 0
+
+def result_1():
+    if score1_1 > score1_2:
+        return 2
+    elif score1_1 == score1_2:
+        return 1
+    elif score1_1 < score1_2:
+        return 0
+        print(result_1)
+
+def result_2(score2_1, score2_2):
+    if score2_1 > score2_2:
+        return 2
+    elif score2_1 == score2_2:
+        return 1
+    elif  score2_1 < score2_2:
+        return 0
+
+def result_3(score3_1, score3_2):
+    if score3_1 > score3_2:
+        return 2
+    elif score3_1 == score3_2:
+        return 1
+    elif score3_1 < score3_2:
+        return 0
+
+def result_4(score4_1, score4_2):
+    if score4_1 > score4_2:
+        return 2
+    elif score4_1 == score4_2:
+        return 1
+    elif score4_1 < score4_2:
+        return 0
+
+def result_5(score5_1, score5_2):
+    if score5_1 > score5_2:
+        return 2
+    elif score5_1 == score5_2:
+        return 1
+    elif score5_1 < score5_2:
+        return 0
+
+def result_6(score6_1, score6_2):
+    if score6_1 > score6_2:
+        return 2
+    elif score6_1 == score6_2:
+        return 1
+    elif score6_1 < score6_2:
+        return 0
+
+# This is attempting work out the points based on the above functions.
+# So Englands Pts should be worked out by the return value of the games they were in (results_1,_4 and _6)
+# These should then feed into teams1 but they dont...
+
+#engpts = result_1 + result_4 + result_6
+#urupts = result_1 + result_3 + result_5
+#mexpts = result_2 + result_4 + result_5
+#frapts = result_2 + result_3 + result_6
+
+print("Group A")
+print("-------")
+
+teams1 = {
+    "Team_Name": ["England", "Uruguay", "Mexico", "France"],
+    "Win": [int(2), int(1), int(0), int(0)],
+    "Draw": [int(1), int(2), int(2), int(1)],
+    "Loss": [int(0), int(0), int(1), int(2)],
+    "GF": [enggf, urugf, mexgf, fragf],
+    "GA": [engga, uruga, mexga, fragf],
+    "GD": [enggd, urugd, mexgd, fragd],
+    "Pts": [engpts, urupts, mexpts, frapts]
+}
+
+df = pd.DataFrame(teams1)
+print(df.sort_values(by=["Pts", "GD"], ascending=False)
+
+# Future notes:
+# I am doing this now a) to learn some code and b) to expand this whole thing into an app that I can give away to fellow world cup game fans
+# This current part works out the group stages but from there I want to work out who plays who in the next round
+# The future aim is to work out the logic of this and then try and replicate it for all
+# Also I would like to add flags to this at some point
